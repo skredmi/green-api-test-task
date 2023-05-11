@@ -1,0 +1,18 @@
+.chat {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0.0625rem solid var(--chat-border-color);
+  border-radius: 0.25rem;
+  padding: 1rem;
+  color: var(--main-text-color);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.3125rem;
+}
+
+.chatButton {
+  background-color: var(--secondary-button-color);
+  color: var(--secondary-text-color);
+}

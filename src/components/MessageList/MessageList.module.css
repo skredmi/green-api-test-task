@@ -1,0 +1,8 @@
+.wrapper {
+  width: 60%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 15px;
+  background-image: url("../../assets/png/background.png");
+}
