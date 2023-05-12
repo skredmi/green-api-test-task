@@ -8,6 +8,7 @@
   --border-color: #7b878e;
   --secondary-button-color: #696262;
   --chat-border-color: #cfd4d6;
+  --disabled-button-color: #35353500;
 }
 
 * {

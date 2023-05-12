@@ -6,9 +6,10 @@ import { Button } from "../../ui/Button/Button";
 interface IChatProps {
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleShowChat: () => void;
 }
 
-export const Chat: FC<IChatProps> = ({ value, onChange }) => {
+export const Chat: FC<IChatProps> = ({ value, onChange, handleShowChat }) => {
   return (
     <div className={styles.chat}>
       <Input
@@ -17,7 +18,15 @@ export const Chat: FC<IChatProps> = ({ value, onChange }) => {
         value={value}
         onChange={onChange}
       />
-      <Button type="button" className={styles.chatButton}>Chat</Button>
+
+      <Button
+        type="button"
+        className={styles.chatButton}
+        onClick={handleShowChat}
+        disabled={!value}
+      >
+        Chat
+      </Button>
     </div>
   );
 };
