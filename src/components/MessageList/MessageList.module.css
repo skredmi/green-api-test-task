@@ -3,6 +3,27 @@
   height: 80vh;
   display: flex;
   flex-direction: column;
-  padding: 25px 15px;
+  justify-content: space-between;
   background-image: url("../../assets/png/background.png");
+}
+
+.messageContainer {
+  padding: 0 32px;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background-color: var(--form-background-color);
+  padding: 20px 50px;
+}
+
+.messageButton {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background-color: var(--secondary-button-color);
+  color: var(--secondary-text-color);
 }
