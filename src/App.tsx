@@ -14,7 +14,7 @@ interface ExactRouteProps {
 
 const AuthRoute: ExactRouteProps = {
   exact: true,
-  path: "/",
+  path: "/green-api-test-task",
   element: <AuthPage />,
 };
 
@@ -26,7 +26,7 @@ export const App = () => {
           <Layout>
             <Routes>
               <Route
-                path="/chat"
+                path="/green-api-test-task/chat"
                 element={
                   <RequireAuth>
                     <MainPage />

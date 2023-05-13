@@ -42,7 +42,7 @@ export const AuthForm: FC<IAuthFormProps> = ({
         />
       </div>
 
-      <Link to="/chat">
+      <Link to="/green-api-test-task/chat">
         <Button
           type="button"
           className={styles.loginButton}
