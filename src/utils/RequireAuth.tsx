@@ -11,5 +11,5 @@ export const RequireAuth: FC<IRequireAuthProps> = ({ children }) => {
   const auth = useContext(AuthContext);
 
 
-  return auth?.isAuthenticated ? <>{children}</> : <Navigate to="/" />;
+  return auth?.isAuthenticated ? <>{children}</> : <Navigate to="/green-api-test-task" />;
 };
