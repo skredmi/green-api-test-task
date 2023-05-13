@@ -8,9 +8,16 @@ export const MainPage = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [isShowChat, setIsShowChat] = useState<boolean>(false);
-  const [sendMessageList, setSendMessageList] = useState<string[]>([]);
-  const [receivedMessageList, setReceivedMessageList] = useState<string[]>([]);
-  const [isRecipient, setIsRecipient] = useState<boolean>(false);
+  const [sendMessageList, setSendMessageList] = useState<
+    { text: string; time: number; type: string }[]
+  >([]);
+  const [receivedMessageList, setReceivedMessageList] = useState<
+    { text: string; time: number; type: string }[]
+  >([]);
+  const [messagesList, setMessagesList] = useState<
+    { text: string; time: number; type: string }[]
+  >([]);
+  const [messageCount, setMessageCount] = useState<number>(0);
 
   const handlePhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(e.target.value);
@@ -41,8 +48,11 @@ export const MainPage = () => {
       } catch (error) {
         console.error(error);
       }
-      setSendMessageList([...sendMessageList, message]);
-      setIsRecipient(false);
+      setSendMessageList([
+        ...sendMessageList,
+        { text: message, time: new Date().getTime(), type: "sender" },
+      ]);
+      setMessageCount(messageCount + 1);
       setMessage("");
     }
   };
@@ -60,8 +70,15 @@ export const MainPage = () => {
       if (response && response.data) {
         const receivedMessage =
           response.data.body.messageData.textMessageData.textMessage;
-        setReceivedMessageList([...receivedMessageList, receivedMessage]);
-        setIsRecipient(true);
+        setReceivedMessageList([
+          ...receivedMessageList,
+          {
+            text: receivedMessage,
+            time: new Date().getTime(),
+            type: "recipient",
+          },
+        ]);
+        setMessageCount(messageCount + 1);
         const receiptId = response.data.receiptId;
         await axios.delete(
           `https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`
@@ -70,7 +87,7 @@ export const MainPage = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [receivedMessageList]);
+  }, [messageCount, receivedMessageList]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -78,6 +95,18 @@ export const MainPage = () => {
     }, 5000);
     return () => clearInterval(intervalId);
   }, [handleReceiveMessage, receivedMessageList]);
+
+  useEffect(() => {
+    const messagesList = sendMessageList
+      .concat(receivedMessageList)
+      .sort((a, b) => {
+        return a.time - b.time;
+      });
+
+    setMessagesList(messagesList);
+  }, [receivedMessageList, sendMessageList]);
+
+  console.log(messagesList);
 
   return (
     <div className={styles.main}>
@@ -91,10 +120,8 @@ export const MainPage = () => {
           message={message}
           handleMessageChange={handleMessageChange}
           handleSendMessage={handleSendMessage}
-          sendMessageList={sendMessageList}
-          handleReceiveMessage={handleReceiveMessage}
-          receivedMessageList={receivedMessageList}
-          isRecipient={isRecipient}
+          messagesList={messagesList}
+          messageCount={messageCount}
         />
       )}
     </div>

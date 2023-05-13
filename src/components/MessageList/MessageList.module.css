@@ -9,6 +9,21 @@
 
 .messageContainer {
   padding: 0 32px;
+  height: 100%;
+  overflow: auto;
+}
+
+.messageContainer::-webkit-scrollbar {
+  width: 0.25rem;
+}
+.messageContainer::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  margin: 0.25rem 0 0.25rem 0;
+}
+.messageContainer::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.34);
+  border-radius: 0.5rem;
 }
 
 .footer {
@@ -26,4 +41,30 @@
   border-radius: 50%;
   background-color: var(--secondary-button-color);
   color: var(--secondary-text-color);
+}
+
+.sendMessage {
+  background: #e1ffc7;
+  border-radius: 5px 0px 5px 5px;
+  float: right;
+}
+
+.sendMessage::after {
+  border-width: 0px 0 10px 10px;
+  border-color: transparent transparent transparent #e1ffc7;
+  top: 0;
+  right: -10px;
+}
+
+.receiveMessage {
+  background: #fff;
+  border-radius: 0px 5px 5px 5px;
+  float: left;
+}
+
+.receiveMessage::after {
+  border-width: 0px 10px 10px 0;
+  border-color: transparent #fff transparent transparent;
+  top: 0;
+  left: -10px;
 }
