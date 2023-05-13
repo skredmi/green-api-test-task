@@ -1,4 +1,4 @@
 export interface LoginState {
-    idInstance: string | null;
-    apiTokenInstance: string | null;
+    idInstance: string;
+    apiTokenInstance: string;
   }

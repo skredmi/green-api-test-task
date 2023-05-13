@@ -2,6 +2,7 @@ import { FC, ChangeEvent } from "react";
 import { Input } from "../../ui/Input/Input";
 import styles from "./Chat.module.css";
 import { Button } from "../../ui/Button/Button";
+import { regexPhoneNumber } from "../../utils/regex";
 
 interface IChatProps {
   value: string;
@@ -10,6 +11,8 @@ interface IChatProps {
 }
 
 export const Chat: FC<IChatProps> = ({ value, onChange, handleShowChat }) => {
+  const isValidInputValue = regexPhoneNumber.test(value);
+
   return (
     <div className={styles.chat}>
       <Input
@@ -23,7 +26,7 @@ export const Chat: FC<IChatProps> = ({ value, onChange, handleShowChat }) => {
         type="button"
         className={styles.chatButton}
         onClick={handleShowChat}
-        disabled={!value}
+        disabled={!isValidInputValue}
       >
         Chat
       </Button>

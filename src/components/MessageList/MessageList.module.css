@@ -8,7 +8,7 @@
 }
 
 .messageContainer {
-  padding: 0 32px;
+  padding: 0 2rem 0.9375rem 2rem;
   height: 100%;
   overflow: auto;
 }
@@ -17,12 +17,12 @@
   width: 0.25rem;
 }
 .messageContainer::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--scroll-color-track);
   border-radius: 0.5rem;
   margin: 0.25rem 0 0.25rem 0;
 }
 .messageContainer::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.34);
+  background: var(--scroll-color-thumb);
   border-radius: 0.5rem;
 }
 
@@ -30,9 +30,9 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 1.875rem;
   background-color: var(--form-background-color);
-  padding: 20px 50px;
+  padding: 1.25rem 3.125rem;
 }
 
 .messageButton {
@@ -44,27 +44,27 @@
 }
 
 .sendMessage {
-  background: #e1ffc7;
-  border-radius: 5px 0px 5px 5px;
+  background: var(--send-message-color);
+  border-radius: 0.3125rem 0rem 0.3125rem 0.3125rem;
   float: right;
 }
 
 .sendMessage::after {
-  border-width: 0px 0 10px 10px;
-  border-color: transparent transparent transparent #e1ffc7;
+  border-width: 0rem 0rem 0.625rem 0.625rem;
+  border-color: transparent transparent transparent var(--send-message-color);
   top: 0;
-  right: -10px;
+  right: -0.625rem;
 }
 
 .receiveMessage {
-  background: #fff;
-  border-radius: 0px 5px 5px 5px;
+  background: var(--receive-message-color);
+  border-radius: 0rem 0.3125rem 0.3125rem 0.3125rem;
   float: left;
 }
 
 .receiveMessage::after {
-  border-width: 0px 10px 10px 0;
-  border-color: transparent #fff transparent transparent;
+  border-width: 0rem 0.625rem 0.625rem 0rem;
+  border-color: transparent var(--receive-message-color) transparent transparent;
   top: 0;
-  left: -10px;
+  left: -0.625rem;
 }

@@ -6,8 +6,8 @@ interface IButtonProps {
   children?: ReactNode;
   type: "button" | "submit";
   className?: string;
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
-  disabled?:boolean
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 }
 
 export const Button: FC<IButtonProps> = ({
@@ -15,12 +15,17 @@ export const Button: FC<IButtonProps> = ({
   type,
   className,
   onClick,
-  disabled
+  disabled,
 }) => {
   const blockClass = classnames(styles.button, className);
 
   return (
-    <button className={blockClass} type={type} onClick={onClick} disabled={disabled}>
+    <button
+      className={blockClass}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

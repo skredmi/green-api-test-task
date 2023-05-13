@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useRef, useEffect, RefObject } from "react";
+import { FC, ChangeEvent, useRef, useEffect, KeyboardEvent } from "react";
 import styles from "./MessageList.module.css";
 import { Input } from "../../ui/Input/Input";
 import { Button } from "../../ui/Button/Button";
@@ -10,7 +10,7 @@ interface IMessageListProps {
   handleMessageChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleSendMessage: () => void;
   messagesList: { text: string; time: number; type: string }[];
-  messageCount: number
+  handleKeyPress: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const MessageList: FC<IMessageListProps> = ({
@@ -18,16 +18,13 @@ export const MessageList: FC<IMessageListProps> = ({
   handleMessageChange,
   handleSendMessage,
   messagesList,
-  messageCount
+  handleKeyPress,
 }) => {
+  const messagesRef = useRef<HTMLDivElement>(null);
 
-  const messagesRef = useRef<HTMLDivElement| null>(null)
-
-  useEffect (() => {
-    if (messagesRef.current !== null) {
-      messagesRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messageCount])
+  useEffect(() => {
+    messagesRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messagesList]);
 
   return (
     <div className={styles.wrapper}>
@@ -36,18 +33,20 @@ export const MessageList: FC<IMessageListProps> = ({
           <div key={index}>
             <Message
               message={i.text}
-              className={i.type === "sender" ? styles.sendMessage : styles.receiveMessage}
-              ref={messagesRef as RefObject<HTMLDivElement>}
+              className={
+                i.type === "sender" ? styles.sendMessage : styles.receiveMessage
+              }
+              ref={messagesRef}
             />
           </div>
         ))}
-
       </div>
       <div className={styles.footer}>
         <Input
           placeholder="Type a message"
           value={message}
           onChange={handleMessageChange}
+          onKeyDown={handleKeyPress}
         />
 
         <Button

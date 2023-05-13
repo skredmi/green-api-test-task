@@ -9,6 +9,12 @@
   --secondary-button-color: #696262;
   --chat-border-color: #cfd4d6;
   --disabled-button-color: #35353500;
+  --black-color: #000000;
+  --link-color: #e8e3e3;
+  --scroll-color-thumb: #a8a8a8;
+  --scroll-color-track:#e6e6e6;
+  --send-message-color: #e1ffc7;
+  --receive-message-color:#fff;
 }
 
 * {
@@ -23,4 +29,9 @@ body {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

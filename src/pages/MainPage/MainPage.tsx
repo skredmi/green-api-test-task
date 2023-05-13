@@ -1,8 +1,16 @@
-import { useState, ChangeEvent, useEffect, useCallback } from "react";
+import {
+  useState,
+  ChangeEvent,
+  useEffect,
+  useCallback,
+  KeyboardEvent,
+} from "react";
 import axios from "axios";
 import { ChatList } from "../../components/ChatList/ChatList";
 import { MessageList } from "../../components/MessageList/MessageList";
+import { url } from "../../utils/url";
 import styles from "./MainPage.module.css";
+import { keyEnter } from "../../utils/constant";
 
 export const MainPage = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -17,10 +25,10 @@ export const MainPage = () => {
   const [messagesList, setMessagesList] = useState<
     { text: string; time: number; type: string }[]
   >([]);
-  const [messageCount, setMessageCount] = useState<number>(0);
 
   const handlePhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(e.target.value);
+    setMessagesList([]);
   };
 
   const handleMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,20 +39,24 @@ export const MainPage = () => {
     setIsShowChat(true);
   };
 
+  useEffect(() => {
+    setMessagesList([]);
+  }, [phoneNumber]);
+
   const handleSendMessage = async () => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = sessionStorage.getItem("user");
     if (storedUser) {
       const user = JSON.parse(storedUser);
       const idInstance = user.idInstance;
       const apiTokenInstance = user.apiTokenInstance;
-      const url = `https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`;
+      const urlSendMessage = url(idInstance, "SendMessage", apiTokenInstance);
       const data = {
         chatId: `${phoneNumber}@c.us`,
         message: message,
       };
 
       try {
-        await axios.post(url, data);
+        await axios.post(urlSendMessage, data);
       } catch (error) {
         console.error(error);
       }
@@ -52,21 +64,30 @@ export const MainPage = () => {
         ...sendMessageList,
         { text: message, time: new Date().getTime(), type: "sender" },
       ]);
-      setMessageCount(messageCount + 1);
       setMessage("");
     }
   };
 
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === keyEnter) {
+      handleSendMessage();
+    }
+  };
+
   const handleReceiveMessage = useCallback(async () => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = sessionStorage.getItem("user");
     if (!storedUser) return;
     const user = JSON.parse(storedUser);
     const idInstance = user.idInstance;
     const apiTokenInstance = user.apiTokenInstance;
-    const url = `https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`;
+    const urlReceiveMessage = url(
+      idInstance,
+      "ReceiveNotification",
+      apiTokenInstance
+    );
 
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(urlReceiveMessage);
       if (response && response.data) {
         const receivedMessage =
           response.data.body.messageData.textMessageData.textMessage;
@@ -78,16 +99,18 @@ export const MainPage = () => {
             type: "recipient",
           },
         ]);
-        setMessageCount(messageCount + 1);
         const receiptId = response.data.receiptId;
-        await axios.delete(
-          `https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`
-        );
+        const urlDeleteNotification = `${url(
+          idInstance,
+          "DeleteNotification",
+          apiTokenInstance
+        )}/${receiptId}`;
+        await axios.delete(urlDeleteNotification);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [messageCount, receivedMessageList]);
+  }, [receivedMessageList]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -106,8 +129,6 @@ export const MainPage = () => {
     setMessagesList(messagesList);
   }, [receivedMessageList, sendMessageList]);
 
-  console.log(messagesList);
-
   return (
     <div className={styles.main}>
       <ChatList
@@ -120,8 +141,8 @@ export const MainPage = () => {
           message={message}
           handleMessageChange={handleMessageChange}
           handleSendMessage={handleSendMessage}
+          handleKeyPress={handleKeyPress}
           messagesList={messagesList}
-          messageCount={messageCount}
         />
       )}
     </div>

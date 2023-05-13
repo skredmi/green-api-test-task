@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 1.875rem;
   border: 0.0625rem solid var(--chat-border-color);
   border-radius: 0.25rem;
   padding: 1rem;
