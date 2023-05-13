@@ -10,5 +10,6 @@ WhatsApp
 • The recipient responds to the message in the WhatsApp messenger
 • The user sees the recipient's response in the chat
 
+![image](https://github.com/skredmi/green-api-test-task/assets/63904240/bd180a5b-53b1-41c3-84a6-8a590c56ddd0)
 
 [проект](https://skredmi.github.io/green-api-test-task/)
