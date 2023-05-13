@@ -13,3 +13,8 @@ WhatsApp
 ![image](https://github.com/skredmi/green-api-test-task/assets/63904240/bd180a5b-53b1-41c3-84a6-8a590c56ddd0)
 
 [проект](https://skredmi.github.io/green-api-test-task/)
+
+To run the project locally:
+git clone git@github.com:skredmi/green-api-test-task.git
+npm install
+npm run dev
