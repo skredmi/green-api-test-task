@@ -22,4 +22,4 @@ npm run dev
 
 ![image](https://github.com/skredmi/green-api-test-task/assets/63904240/bd180a5b-53b1-41c3-84a6-8a590c56ddd0)
 
-[проект](https://skredmi.github.io/green-api-test-task/)
+[App](https://skredmi.github.io/green-api-test-task/)
