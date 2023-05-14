@@ -17,3 +17,16 @@
   color: var(--secondary-text-color);
   align-self: self-end;
 }
+
+@media (max-width: 430px) {
+  .chat {
+    flex-direction: column;
+    padding: 0.25rem;
+    gap: 1rem;
+    font-size: 1rem;
+    line-height: 1.1rem;
+  }
+  .chatButton {
+    align-self: center;
+  }
+}

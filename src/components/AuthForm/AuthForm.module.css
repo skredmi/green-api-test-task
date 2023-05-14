@@ -45,3 +45,16 @@
   font-weight: 900;
   color: var(--link-color);
 }
+
+@media (max-width: 430px) {
+  .form {
+    width: 100%;
+  }
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .fields {
+    margin-bottom: 0.25rem;
+  }
+}

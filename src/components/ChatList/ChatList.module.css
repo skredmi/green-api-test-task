@@ -6,3 +6,11 @@
   gap: 1.5rem;
   padding: 1.25rem;
 }
+
+@media (max-width: 430px) {
+  .list {
+    width: 100%;
+    flex-direction: row;
+    padding: 0;
+  }
+}
