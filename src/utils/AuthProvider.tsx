@@ -1,9 +1,5 @@
 import { createContext, useState, FC, PropsWithChildren } from "react";
-
-interface IAuthContext {
-  isAuthenticated: boolean;
-  setIsAuthenticated: (value: boolean) => void;
-}
+import { IAuthContext } from "../types/AuthTypes";
 
 export const AuthContext = createContext<IAuthContext | null>(null);
 

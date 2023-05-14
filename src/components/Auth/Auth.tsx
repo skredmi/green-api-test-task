@@ -14,25 +14,32 @@ export const Auth = () => {
   useEffect(() => {
     const storagedUser = sessionStorage.getItem("user");
     if (storagedUser) {
-      const user = JSON.parse(storagedUser);
-      setUser({
-        idInstance: user.idInstance,
-        apiTokenInstance: user.apiTokenInstance,
-      });
+      try {
+        const { idInstance, apiTokenInstance } = JSON.parse(
+          storagedUser
+        ) as LoginState;
+        setUser({ idInstance, apiTokenInstance });
+      } catch (error) {
+        console.error(error);
+      }
     }
   }, []);
 
-  const handleIdInstanceChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, idInstance: event.target.value });
+  const handleIdInstanceChange = ({
+    target: { value: idInstance },
+  }: ChangeEvent<HTMLInputElement>) => {
+    setUser({ ...user, idInstance });
   };
-
-  const handleApiTokenInstanceChange = (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    setUser({ ...user, apiTokenInstance: event.target.value });
+  const handleApiTokenInstanceChange = ({
+    target: { value: apiTokenInstance },
+  }: ChangeEvent<HTMLInputElement>) => {
+    setUser({ ...user, apiTokenInstance });
   };
 
   const handleSubmit = () => {
+    if (!user.idInstance || !user.apiTokenInstance) {
+      return;
+    }
     sessionStorage.setItem("user", JSON.stringify(user));
     auth?.setIsAuthenticated(true);
   };

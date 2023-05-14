@@ -8,9 +8,10 @@
 }
 
 .messageContainer {
-  padding: 0 2rem 0.9375rem 2rem;
+  padding: 0 2rem;
   height: 100%;
   overflow: auto;
+  margin-bottom: 0.5rem;
 }
 
 .messageContainer::-webkit-scrollbar {
@@ -32,7 +33,7 @@
   align-items: center;
   gap: 1.875rem;
   background-color: var(--form-background-color);
-  padding: 1.25rem 3.125rem;
+  padding: 0.5rem 3.125rem;
 }
 
 .messageButton {

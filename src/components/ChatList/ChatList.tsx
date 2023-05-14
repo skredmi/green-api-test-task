@@ -3,6 +3,7 @@ import { Chat } from "../Chat/Chat";
 import styles from "./ChatList.module.css";
 import { Button } from "../../ui/Button/Button";
 import { AuthContext } from "../../utils/AuthProvider";
+import { IAuthContext } from "../../types/AuthTypes";
 
 interface IChatListProps {
   phoneNumber: string;
@@ -15,7 +16,7 @@ export const ChatList: FC<IChatListProps> = ({
   handlePhoneNumberChange,
   handleShowChat,
 }) => {
-  const auth = useContext(AuthContext);
+  const auth = useContext<IAuthContext | null>(AuthContext);
 
   const handleLogoutClick = () => {
     auth?.setIsAuthenticated(false);

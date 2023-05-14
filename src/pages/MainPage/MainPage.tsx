@@ -11,20 +11,15 @@ import { MessageList } from "../../components/MessageList/MessageList";
 import { url } from "../../utils/url";
 import styles from "./MainPage.module.css";
 import { keyEnter } from "../../utils/constant";
+import { IMessage } from "../../types/MessageType";
 
 export const MainPage = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [isShowChat, setIsShowChat] = useState<boolean>(false);
-  const [sendMessageList, setSendMessageList] = useState<
-    { text: string; time: number; type: string }[]
-  >([]);
-  const [receivedMessageList, setReceivedMessageList] = useState<
-    { text: string; time: number; type: string }[]
-  >([]);
-  const [messagesList, setMessagesList] = useState<
-    { text: string; time: number; type: string }[]
-  >([]);
+  const [sendMessageList, setSendMessageList] = useState<IMessage[]>([]);
+  const [receivedMessageList, setReceivedMessageList] = useState<IMessage[]>([]);
+  const [messagesList, setMessagesList] = useState<IMessage[]>([]);
 
   const handlePhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(e.target.value);
